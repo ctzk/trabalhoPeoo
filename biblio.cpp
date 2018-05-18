@@ -22,8 +22,8 @@ void Elemento::SetTipo(TipoElemento tipo){
 }
 
 //##################### PESSOA #############################
-Pessoa::Pessoa():Elemento("Nome_padrao", espacoVazio){
-	this->hp = 100;
+Pessoa::Pessoa(string nome, TipoElemento tipo, int hp):Elemento(nome, tipo){
+	this->hp = hp;
 }
 
 void Pessoa::SetHp(int hp){
@@ -35,16 +35,16 @@ int Pessoa::GetHp(){
 }
 
 TipoElemento Pessoa::GetTipo(){
-	return tipo;
+	return espacoVazio;
 }
 
 //##################### ONEPIECE #############################
-OnePiece::OnePiece(float peso):Elemento("One Piece", onePiece){
+OnePiece::OnePiece(float peso):Elemento("One Piece", onePiece){	//One piece pode continuar assim
 	this->peso = peso;
 }
 
 TipoElemento OnePiece::GetTipo(){
-	return tipo;
+	return onePiece;
 }
 
 void OnePiece::SetPeso(float peso){
@@ -56,7 +56,8 @@ float OnePiece::GetPeso(){
 }
 
 //##################### PIRATA #############################
-Pirata::Pirata(float peso, float pesoadd) : Pessoa(){
+Pirata::Pirata(string nome, TipoElemento tipo, int hp,
+							float peso, float pesoadd) : Pessoa(nome, tipo, hp){
 	this->peso = peso;
 	this->pesoadd = pesoadd;
 }
@@ -77,8 +78,13 @@ float Pirata::GetPesoAdd(){
 	return pesoadd;
 }
 
+TipoElemento Pirata::GetTipo(){
+	return pirata;
+}
+
 //##################### MARINHA #############################
-Marinha::Marinha(bool estado) : Pessoa(){
+Marinha::Marinha(std::string nome, TipoElemento tipo, int hp,
+									float peso, bool estado) : Pessoa(nome, tipo, hp){
 	this->estado = estado;
 }
 
@@ -88,4 +94,8 @@ void Marinha::SetEstado(bool estado){
 
 bool Marinha::GetEstado(){
 	return estado;
+}
+
+TipoElemento Marinha::GetTipo(){
+	return marinha;
 }
