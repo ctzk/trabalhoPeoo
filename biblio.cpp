@@ -9,15 +9,15 @@ Elemento::Elemento(string nome, TipoElemento tipo){
 	this->tipo = tipo;
 }
 
-void Elemento::SetNome(string nome){
+void Elemento::setNome(string nome){
 	this->nome = nome;
 }
 
-string Elemento::GetNome(){
+string Elemento::getNome(){
 	return nome;
 }
 
-void Elemento::SetTipo(TipoElemento tipo){
+void Elemento::setTipo(TipoElemento tipo){
 	this->tipo = tipo;
 }
 
@@ -26,15 +26,15 @@ Pessoa::Pessoa(string nome, TipoElemento tipo, int hp):Elemento(nome, tipo){
 	this->hp = hp;
 }
 
-void Pessoa::SetHp(int hp){
+void Pessoa::setHp(int hp){
 	this->hp = hp;
 }
 
-int Pessoa::GetHp(){
+int Pessoa::getHp(){
 	return hp;
 }
 
-TipoElemento Pessoa::GetTipo(){
+TipoElemento Pessoa::getTipo(){
 	return espacoVazio;
 }
 
@@ -43,59 +43,59 @@ OnePiece::OnePiece(float peso):Elemento("One Piece", onePiece){	//One piece pode
 	this->peso = peso;
 }
 
-TipoElemento OnePiece::GetTipo(){
+TipoElemento OnePiece::getTipo(){
 	return onePiece;
 }
 
-void OnePiece::SetPeso(float peso){
+void OnePiece::setPeso(float peso){
 	this->peso = peso;
 }
 
-float OnePiece::GetPeso(){
+float OnePiece::getPeso(){
 	return peso;
 }
 
 //##################### PIRATA #############################
 Pirata::Pirata(string nome, TipoElemento tipo, int hp,
-							float peso, float pesoadd) : Pessoa(nome, tipo, hp){
+				float peso, float pesoAdd) : Pessoa(nome, tipo, hp){
 	this->peso = peso;
-	this->pesoadd = pesoadd;
+	this->pesoAdd = pesoAdd;
 }
 
-void Pirata::SetPeso(float peso){
+void Pirata::setPeso(float peso){
 	this->peso = peso;
 }
 
-float Pirata::GetPeso(){
+float Pirata::getPeso(){
 	return peso;
 }
 
-void Pirata::SetPesoAdd(float pesoadd){
-	this->pesoadd = pesoadd;
+void Pirata::setPesoAdd(float pesoAdd){
+	this->pesoAdd = pesoAdd;
 }
 
-float Pirata::GetPesoAdd(){
-	return pesoadd;
+float Pirata::getPesoAdd(){
+	return pesoAdd;
 }
 
-TipoElemento Pirata::GetTipo(){
+TipoElemento Pirata::getTipo(){
 	return pirata;
 }
 
 //##################### MARINHA #############################
 Marinha::Marinha(std::string nome, TipoElemento tipo, int hp,
-									float peso, bool estado) : Pessoa(nome, tipo, hp){
+				float peso, bool estado) : Pessoa(nome, tipo, hp){
 	this->estado = estado;
 }
 
-void Marinha::SetEstado(bool estado){
+void Marinha::setEstado(bool estado){
 	this->estado = estado;
 }
 
-bool Marinha::GetEstado(){
+bool Marinha::getEstado(){
 	return estado;
 }
 
-TipoElemento Marinha::GetTipo(){
+TipoElemento Marinha::getTipo(){
 	return marinha;
 }

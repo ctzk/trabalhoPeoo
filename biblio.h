@@ -5,64 +5,64 @@
 
 //##################### ELEMENTO #############################
 class Elemento{
+private:
+	std::string nome;
+	TipoElemento tipo;
 public:
 	Elemento(std::string nome, TipoElemento tipo);
-	void SetNome(std::string nome);
-	std::string GetNome();
-	void SetTipo(TipoElemento tipo);
-	virtual TipoElemento GetTipo() = 0;
-private:
-  std::string nome;
-  TipoElemento tipo;
+	void setNome(std::string nome);
+	std::string getNome();
+	void setTipo(TipoElemento tipo);
+	virtual TipoElemento getTipo() = 0;
 };
 
 //##################### PESSOA #############################
 class Pessoa: public Elemento{
-public:
-  Pessoa(std::string nome, TipoElemento tipo, int hp);
-  void SetHp(int hp);
-  int GetHp();
-  TipoElemento GetTipo();
 private:
-  int hp;
+	int hp;
+public:
+	Pessoa(std::string nome, TipoElemento tipo, int hp);
+	void setHp(int hp);
+	int getHp();
+	virtual TipoElemento getTipo() = 0;
 };
 
 //##################### ONEPIECE #############################
 class OnePiece: public Elemento{
-public:
-	OnePiece(float peso);
-	void SetPeso(float peso);
-	float GetPeso();
-  TipoElemento GetTipo();
 private:
 	float peso;
+public:
+	OnePiece(float peso);
+	void setPeso(float peso);
+	float getPeso();
+	TipoElemento getTipo();
 };
 
 //##################### PIRATA #############################
 class Pirata: public Pessoa{
-public:
-	Pirata(std::string nome, TipoElemento tipo, int hp,
-					float peso, float pesoadd);
-	void SetPeso(float peso);
-	float GetPeso();
-	void SetPesoAdd(float pesoadd);
-	float GetPesoAdd();
-	TipoElemento GetTipo();
 private:
 	float peso;
-	float pesoadd;
+	float pesoAdd;
+public:
+	Pirata(std::string nome, TipoElemento tipo, int hp,
+					float peso, float pesoAdd);
+	void setPeso(float peso);
+	float getPeso();
+	void setPesoAdd(float pesoAdd);
+	float getPesoAdd();
+	TipoElemento getTipo();
 };
 
 //##################### MARINHA #############################
 class Marinha: public Pessoa{
+private:
+	bool estado;
 public:
 	Marinha(std::string nome, TipoElemento tipo, int hp,
 					float peso, bool estado);
-	void SetEstado(bool estado);
-	bool GetEstado();
-	TipoElemento GetTipo();
-private:
-	bool estado;
+	void setEstado(bool estado);
+	bool getEstado();
+	TipoElemento getTipo();
 };
 
 
