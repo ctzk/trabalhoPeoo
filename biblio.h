@@ -2,6 +2,7 @@
 #ifndef BIBLIO_H
 #define BIBLIO_H
 #include<string>
+#include<vector>
 
 //##################### ELEMENTO #############################
 class Elemento{
@@ -25,17 +26,6 @@ public:
 	void setHp(int hp);
 	int getHp();
 	virtual TipoElemento getTipo() = 0;
-};
-
-//##################### ONEPIECE #############################
-class OnePiece: public Elemento{
-private:
-	float peso;
-public:
-	OnePiece(float peso);
-	void setPeso(float peso);
-	float getPeso();
-	TipoElemento getTipo();
 };
 
 //##################### PIRATA #############################
@@ -65,5 +55,15 @@ public:
 	TipoElemento getTipo();
 };
 
+//##################### ONEPIECE #############################
+class OnePiece: public Elemento{
+private:
+	float peso;
+public:
+	OnePiece(float peso);
+	void setPeso(float peso);
+	float getPeso();
+	TipoElemento getTipo();
+};
 
 #endif
