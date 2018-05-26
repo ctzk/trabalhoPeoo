@@ -66,4 +66,15 @@ public:
 	TipoElemento getTipo();
 };
 
+//##################### GRANDLINE #############################
+
+class GrandLine{
+private:
+	std::vector< std::vector < Elemento* > > cenario;
+public:
+	GrandLine(int tamanho_cenario);
+	void setCenario(int tamanho_cenario);
+	std::vector< std::vector < Elemento* > > getCenario();
+};
+
 #endif

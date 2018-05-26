@@ -1,6 +1,7 @@
 #include "enum.h"
 #include "biblio.h"
 #include <iostream>
+
 using namespace std;
 
 //##################### ELEMENTO #############################
@@ -98,4 +99,16 @@ bool Marinha::getEstado(){
 
 TipoElemento Marinha::getTipo(){
 	return marinha;
+}
+
+//##################### GrandLine #############################
+GrandLine::GrandLine(int tamanho_cenario){
+	setCenario(tamanho_cenario);
+}
+
+void GrandLine::setCenario(int tamanho_cenario){
+	cenario.resize(tamanho_cenario);	//aloca uma coluna de tamanho "tamanho_cenario"
+	for(int i = 0; i < tamanho_cenario; i++){
+		cenario[i].resize(tamanho_cenario);	//aloca em cada coluna uma linha de tamanho "tamanho_cenario"
+	}
 }
