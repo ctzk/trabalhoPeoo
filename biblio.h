@@ -10,11 +10,12 @@ private:
 	std::string nome;
 	TipoElemento tipo;
 public:
+	Elemento();
 	Elemento(std::string nome, TipoElemento tipo);
 	void setNome(std::string nome);
 	std::string getNome();
 	void setTipo(TipoElemento tipo);
-	virtual TipoElemento getTipo() = 0;
+	TipoElemento getTipo();
 };
 
 //##################### PESSOA #############################
@@ -72,9 +73,12 @@ class GrandLine{
 private:
 	std::vector< std::vector < Elemento > > cenario;
 public:
-	GrandLine();
-	void setCenario(std::vector< std::vector < Elemento > > cenario);
-	std::vector< std::vector < Elemento > > getCenario();
+	GrandLine(int tam);
+	void setCenario(Elemento n, int x, int y);
+	void setCenario(Pirata n, int x, int y);
+	void setCenario(Marinha n, int x, int y);
+	std::vector < std::vector < Elemento > > getCenario();
+
 };
 
 #endif
