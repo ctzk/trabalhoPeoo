@@ -50,7 +50,7 @@ private:
 	bool estado;
 public:
 	Marinha(std::string nome, TipoElemento tipo, int hp,
-					float peso, bool estado);
+					bool estado);
 	void setEstado(bool estado);
 	bool getEstado();
 	TipoElemento getTipo();
@@ -78,7 +78,6 @@ public:
 	void setCenario(Pirata n, int x, int y);
 	void setCenario(Marinha n, int x, int y);
 	std::vector < std::vector < Elemento > > getCenario();
-
 };
 
 #endif

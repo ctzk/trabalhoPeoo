@@ -1,12 +1,15 @@
 #include "enum.h"
 #include "biblio.h"
 #include <iostream>
+#include <cstdio>
+#include <ctime>
 
 using namespace std;
 
+
 //##################### ELEMENTO #############################
 Elemento::Elemento(){
-	nome = "~~~ ";
+	nome = " . ";
 	tipo = espacoVazio;
 }
 
@@ -49,7 +52,7 @@ TipoElemento Pessoa::getTipo(){
 }
 
 //##################### ONEPIECE #############################
-OnePiece::OnePiece(float peso):Elemento("One Piece", onePiece){	//One piece pode continuar assim
+OnePiece::OnePiece(float peso):Elemento(" OP", onePiece){	//One piece pode continuar assim
 	this->peso = peso;
 }
 
@@ -94,7 +97,7 @@ TipoElemento Pirata::getTipo(){
 
 //##################### MARINHA #############################
 Marinha::Marinha(std::string nome, TipoElemento tipo, int hp,
-				float peso, bool estado) : Pessoa(nome, tipo, hp){
+									bool estado) : Pessoa(nome, tipo, hp){
 	this->estado = estado;
 }
 
@@ -134,4 +137,3 @@ void GrandLine::setCenario(Pirata n, int x, int y){
 void GrandLine::setCenario(Marinha n, int x, int y){
 	cenario[y][x] = n;
 }
-
