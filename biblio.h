@@ -25,7 +25,7 @@ public:
 	Pessoa(std::string nome, TipoElemento tipo, int hp);
 	void setHp(int hp);
 	int getHp();
-	virtual TipoElemento getTipo() = 0;
+	virtual TipoElemento getTipo();
 };
 
 //##################### PIRATA #############################
@@ -70,11 +70,11 @@ public:
 
 class GrandLine{
 private:
-	std::vector< std::vector < Elemento* > > cenario;
+	std::vector< std::vector < Elemento > > cenario;
 public:
-	GrandLine(int tamanho_cenario);
-	void setCenario(int tamanho_cenario);
-	std::vector< std::vector < Elemento* > > getCenario();
+	GrandLine();
+	void setCenario(std::vector< std::vector < Elemento > > cenario);
+	std::vector< std::vector < Elemento > > getCenario();
 };
 
 #endif
