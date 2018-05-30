@@ -5,6 +5,11 @@
 using namespace std;
 
 //##################### ELEMENTO #############################
+Elemento::Elemento(){
+	nome = "~~~ ";
+	tipo = espacoVazio;
+}
+
 Elemento::Elemento(string nome, TipoElemento tipo){
 	this->nome = nome;
 	this->tipo = tipo;
@@ -22,6 +27,10 @@ void Elemento::setTipo(TipoElemento tipo){
 	this->tipo = tipo;
 }
 
+
+TipoElemento Elemento::getTipo(){
+	return tipo;
+}
 //##################### PESSOA #############################
 Pessoa::Pessoa(string nome, TipoElemento tipo, int hp):Elemento(nome, tipo){
 	this->hp = hp;
@@ -102,9 +111,27 @@ TipoElemento Marinha::getTipo(){
 }
 
 //##################### GrandLine #############################
-GrandLine::GrandLine(vector cenario){
-	setCenario(cenario);
+GrandLine::GrandLine(int tam){
+	int i;
+	cenario.resize(tam);
+	for(i = 0; i < tam; i++){
+		cenario[i].resize(tam);
+	}
 }
 
-void GrandLine::setCenario(vector cenario){
+vector < vector<Elemento> > GrandLine::getCenario(){
+	return cenario;
 }
+
+void GrandLine::setCenario(Elemento n, int x, int y){
+	cenario[y][x] = n;
+}
+
+void GrandLine::setCenario(Pirata n, int x, int y){
+	cenario[y][x] = n;
+}
+
+void GrandLine::setCenario(Marinha n, int x, int y){
+	cenario[y][x] = n;
+}
+
