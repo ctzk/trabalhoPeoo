@@ -77,6 +77,7 @@ public:
 	void setCenario(Elemento n, int x, int y);
 	void setCenario(Pirata n, int x, int y);
 	void setCenario(Marinha n, int x, int y);
+	void visualizarCenario();
 	std::vector < std::vector < Elemento > > getCenario();
 };
 
