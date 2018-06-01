@@ -120,6 +120,49 @@ GrandLine::GrandLine(int tam){
 	for(i = 0; i < tam; i++){
 		cenario[i].resize(tam);
 	}
+
+	srand(time(NULL));
+	Elemento obs(" O ", obstaculo);
+	Marinha mar(" M ", marinha, 100, false);	//HP, estado
+	Pirata player(" P ", pirata, 100, 70.0, 0.0);	//HP, peso, peso adicional
+	OnePiece op(300); //300 Kg
+	int r_linha;
+	int r_coluna;
+
+//coloca obstaculos em uma posição aleatória entre 1,1 e n-1,n-1 em uma posição que não esteja ocupada
+	for(i = 0; i < (cenario.size()/2); i++){
+		do{
+			r_linha = rand() % (cenario.size()-1) + 1;
+			r_coluna = rand() % (cenario.size()-1) + 1;
+
+			if(cenario[cenario.size()-1][cenario.size()-2].getTipo() == obstaculo ||
+				 cenario[cenario.size()-2][cenario.size()-1].getTipo() == obstaculo ||
+				 cenario[0][1].getTipo() == obstaculo || cenario[1][0].getTipo() == obstaculo){
+					 r_linha = rand() % (cenario.size()-1) + 1;
+					 r_coluna = rand() % (cenario.size()-1) + 1;
+				 }
+		}while(cenario[r_coluna][r_linha].getTipo() != espacoVazio);
+
+		setCenario(obs, r_linha, r_coluna);
+	}
+
+//coloca marinha em uma posição aleatória entre 1,1 e n-1,n-1 em uma posição que não esteja ocupada
+	do{
+		r_linha = rand() % (cenario.size()-1) + 1;
+		r_coluna = rand() % (cenario.size()-1) + 1;
+
+//garante que a marinha nao tranque o caminho com uma pedra APENAS na origem
+		if((r_linha == 1 && r_coluna == 0 && cenario[0][1].getTipo() == obstaculo) ||
+			 (r_linha == 0 && r_coluna == 1 && cenario[1][0].getTipo() == obstaculo)){
+				 r_linha = rand() % (cenario.size()-1) + 1;
+				 r_coluna = rand() % (cenario.size()-1) + 1;
+			 }
+	}while(cenario[r_coluna][r_linha].getTipo() != espacoVazio);
+	setCenario(mar, r_linha, r_coluna);
+
+//o pirata parte de 0,0
+	setCenario(player, 0, 0);
+	setCenario(op, (cenario.size()-1), (cenario.size()-1));
 }
 
 vector < vector<Elemento> > GrandLine::getCenario(){

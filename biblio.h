@@ -4,6 +4,7 @@
 #include<string>
 #include<vector>
 
+
 //##################### ELEMENTO #############################
 class Elemento{
 private:
@@ -80,5 +81,9 @@ public:
 	void visualizarCenario();
 	std::vector < std::vector < Elemento > > getCenario();
 };
+
+
+//##################### FUNÇÕES ADICIONAIS ##############################
+
 
 #endif
