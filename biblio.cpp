@@ -183,10 +183,10 @@ void Marinha::move(GrandLine *mapa, Marinha *m, int estava_x, int estava_y, Movi
 					mapa->setCenario(aux, estava_x, estava_y);
 					mapa->setCenario(*m, estava_x+1, estava_y);
 				}else{
-					cout << "Nao eh possivel ir para baixo" << endl;
+					cout << "MARINHA - Nao eh possivel ir para baixo" << endl;
 				}
 			}else{
-				cout << "Nao existe mais cenario a baixo" << endl;
+				cout << "MARINHA - Nao existe mais cenario a baixo" << endl;
 			}
 		}else if(ir_para == cima){
 			if(estava_x-1 >= 0){
@@ -195,10 +195,10 @@ void Marinha::move(GrandLine *mapa, Marinha *m, int estava_x, int estava_y, Movi
 					mapa->setCenario(aux, estava_x, estava_y);
 					mapa->setCenario(*m, estava_x-1, estava_y);
 				}else{
-					cout << "Nao eh possivel ir para cima" << endl;
+					cout << "MARINHA - Nao eh possivel ir para cima" << endl;
 				}
 			}else{
-				cout << "Nao existe mais cenario a cima" << endl;
+				cout << "MARINHA - Nao existe mais cenario a cima" << endl;
 			}
 		}else if(ir_para == direita){
 			if(estava_y+1 < mapa->getCenario()[0].size()){
@@ -207,10 +207,10 @@ void Marinha::move(GrandLine *mapa, Marinha *m, int estava_x, int estava_y, Movi
 					mapa->setCenario(aux, estava_x, estava_y);
 					mapa->setCenario(*m, estava_x, estava_y+1);
 				}else{
-					cout << "Nao eh possivel ir para direita" << endl;
+					cout << "MARINHA - Nao eh possivel ir para direita" << endl;
 				}
 			}else{
-				cout << "Nao existe mais cenario a direita" << endl;
+				cout << "MARINHA - Nao existe mais cenario a direita" << endl;
 			}
 		}else {
 			if(estava_y-1 >= 0){
@@ -219,10 +219,10 @@ void Marinha::move(GrandLine *mapa, Marinha *m, int estava_x, int estava_y, Movi
 					mapa->setCenario(aux, estava_x, estava_y);
 					mapa->setCenario(*m, estava_x, estava_y-1);
 				}else{
-					cout << "Nao eh possivel ir para esquerda" << endl;
+					cout << "MARINHA - Nao eh possivel ir para esquerda" << endl;
 				}
 			}else{
-				cout << "Nao existe mais cenario a esquerda" << endl;
+				cout << "MARINHA - Nao existe mais cenario a esquerda" << endl;
 			}
 		}
 	}

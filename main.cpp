@@ -41,7 +41,7 @@ int main(){
 	char a = 'b';
 
 
-	while(a != 'k'){
+	while(a != 'e'){
 		a = getchar();
 		movimento_int = rand() % 4 + 1;	//gera o próximo movimento
 
