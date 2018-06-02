@@ -10,6 +10,8 @@ class Pirata;
 class Marinha;
 class OnePiece;
 class GrandLine;
+void procuraPirata(GrandLine mapa, int *p);
+void procuraMarinha(GrandLine mapa, int *m);
 
 //##################### ELEMENTO #############################
 class Elemento{
@@ -34,6 +36,7 @@ public:
 	void setHp(int hp);
 	int getHp();
 	TipoElemento getTipo();
+	virtual void move();
 };
 
 //##################### PIRATA #############################
@@ -49,6 +52,7 @@ public:
 	void setPesoAdd(float pesoAdd);
 	float getPesoAdd();
 	TipoElemento getTipo();
+	void move(GrandLine *mapa, Pirata *p, int estava_x, int estava_y, Movimento ir_para);
 };
 
 //##################### MARINHA #############################
@@ -60,6 +64,7 @@ public:
 	void setEstado(bool estado);
 	bool getEstado();
 	TipoElemento getTipo();
+	void move(GrandLine *mapa, Marinha *m, int estava_x, int estava_y, Movimento ir_para);
 };
 
 //##################### ONEPIECE #############################
