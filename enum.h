@@ -2,6 +2,6 @@
 #define ENUM_H
 
 enum TipoElemento{pirata, marinha, espacoVazio, obstaculo, onePiece};
-enum Movimento{up = 1, down, left, right};
+enum Movimento{cima = 1, baixo, esquerda, direita};
 
 #endif

@@ -4,14 +4,12 @@
 #include<string>
 #include<vector>
 
-
 class Elemento;
 class Pessoa;
 class Pirata;
 class Marinha;
 class OnePiece;
 class GrandLine;
-
 
 //##################### ELEMENTO #############################
 class Elemento{
@@ -35,7 +33,7 @@ public:
 	Pessoa(std::string nome, TipoElemento tipo, int hp);
 	void setHp(int hp);
 	int getHp();
-	virtual TipoElemento getTipo();
+	TipoElemento getTipo();
 };
 
 //##################### PIRATA #############################
@@ -61,7 +59,6 @@ public:
 	Marinha(std::string nome, TipoElemento tipo, int hp, bool estado);
 	void setEstado(bool estado);
 	bool getEstado();
-	void moverPessoa(GrandLine *cenario, Movimento ir_Para);
 	TipoElemento getTipo();
 };
 
@@ -89,6 +86,7 @@ public:
 	void setCenario(Pirata n, int x, int y);
 	void setCenario(Marinha n, int x, int y);
 	std::vector < std::vector < Elemento > > getCenario();
+	void mostraMapa();	//APENAS PARA TESTES, APAGAR DEPOIS
 };
 
 //##################### FUNÇÕES ADICIONAIS ##############################

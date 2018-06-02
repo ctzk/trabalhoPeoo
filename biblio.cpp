@@ -51,6 +51,7 @@ TipoElemento Pessoa::getTipo(){
 	return espacoVazio;
 }
 
+
 //##################### ONEPIECE #############################
 OnePiece::OnePiece(float peso):Elemento(" OP", onePiece){	//One piece pode continuar assim
 	this->peso = peso;
@@ -148,7 +149,7 @@ void GrandLine::inicializar(int tam){
 					 r_linha = rand() % (cenario.size()-1) + 1;
 					 r_coluna = rand() % (cenario.size()-1) + 1;
 				 }
-		}while(cenario[r_coluna][r_linha].getTipo() != espacoVazio);
+		}while(cenario[r_linha][r_coluna].getTipo() != espacoVazio);
 
 		setCenario(obs, r_linha, r_coluna);
 	}
@@ -164,7 +165,7 @@ void GrandLine::inicializar(int tam){
 				 r_linha = rand() % (cenario.size()-1) + 1;
 				 r_coluna = rand() % (cenario.size()-1) + 1;
 			 }
-	}while(cenario[r_coluna][r_linha].getTipo() != espacoVazio);
+	}while(cenario[r_linha][r_coluna].getTipo() != espacoVazio);
 
 	setCenario(mar, r_linha, r_coluna);
 }
@@ -188,30 +189,35 @@ void GrandLine::setCenario(Marinha n, int x, int y){
 void GrandLine::visualizarCenario(){
 	int i, j;
 	bool temObjetos = true;
-	int tam_colunas_original = cenario[0].size();
 
+	cout << endl << "Mapa Original" << endl;
 	for(i = 0; i < cenario.size(); i++){
-		for(j = 0; j < tam_colunas_original; j++){
+		for(j = 0; j < cenario[0].size(); j++){
 			cout << getCenario()[i][j].getNome();
 		}
 		cout << endl;
 	}
 
+//remove linhas com apenas espaços vazios
 	for(i = 0; i < cenario.size(); i++){
-		for(j = 0; j < tam_colunas_original; j++){
+		for(j = 0; j < cenario[0].size(); j++){
 			if(cenario[i][j].getTipo() != espacoVazio){
-				j = tam_colunas_original;
-			}else if((j == tam_colunas_original-1) && cenario[i][j].getTipo() == espacoVazio){
-				cout << "linha " << i << " removida" << endl;
-				cenario.erase(cenario.begin()+i);
+				j = cenario[0].size();
+			}else if((j == cenario[0].size()-1) && cenario[i][j].getTipo() == espacoVazio){
+				cenario[i].clear();	//esvazia o vetor
+				cenario.erase(cenario.begin()+i);	//remove o vetor "da conta"
 				i--;
 			}
 		}
 	}
+}
 
-	cout << endl << endl;
+void GrandLine::mostraMapa(){
+	int i, j;
+
+	cout << endl << "Mapa com linhas removidas" << endl;
 	for(i = 0; i < cenario.size(); i++){
-		for(j = 0; j < tam_colunas_original; j++){
+		for(j = 0; j < cenario[0].size(); j++){
 			cout << getCenario()[i][j].getNome();
 		}
 		cout << endl;
