@@ -5,6 +5,14 @@
 #include<vector>
 
 
+class Elemento;
+class Pessoa;
+class Pirata;
+class Marinha;
+class OnePiece;
+class GrandLine;
+
+
 //##################### ELEMENTO #############################
 class Elemento{
 private:
@@ -50,10 +58,10 @@ class Marinha: public Pessoa{
 private:
 	bool estado;
 public:
-	Marinha(std::string nome, TipoElemento tipo, int hp,
-					bool estado);
+	Marinha(std::string nome, TipoElemento tipo, int hp, bool estado);
 	void setEstado(bool estado);
 	bool getEstado();
+	void moverPessoa(GrandLine *cenario, Movimento ir_Para);
 	TipoElemento getTipo();
 };
 
@@ -74,16 +82,15 @@ class GrandLine{
 private:
 	std::vector< std::vector < Elemento > > cenario;
 public:
-	GrandLine(int tam);
+	GrandLine();
+	void inicializar(int tam);
+	void visualizarCenario();
 	void setCenario(Elemento n, int x, int y);
 	void setCenario(Pirata n, int x, int y);
 	void setCenario(Marinha n, int x, int y);
-	void visualizarCenario();
 	std::vector < std::vector < Elemento > > getCenario();
 };
 
-
 //##################### FUNÇÕES ADICIONAIS ##############################
-
 
 #endif

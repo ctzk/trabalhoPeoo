@@ -16,22 +16,19 @@ int main(){
 			return 0;
 		}
 
-		GrandLine cenario_jogo(tamanhoDoMapa);
+		GrandLine cenario_jogo;
+		cenario_jogo.inicializar(tamanhoDoMapa);
 		//cout << cenario_jogo.getCenario()[0][0].getNome() << endl;
 
+		cout << endl;
 		cout << "-1 p/ sair" << endl;
 		cout << "Legendas: "<< endl;
 		cout << "P = Pirata" << endl;
 		cout << "M = Marinha" << endl;
 		cout << "OP = One Piece" << endl << endl;
 
-//imprime o mapa
-		for(i = 0; i < tamanhoDoMapa; i++){
-			for(j = 0; j < tamanhoDoMapa; j++){
-				cout << cenario_jogo.getCenario()[i][j].getNome();
-			}
-			cout << endl;
-		}
+		cenario_jogo.visualizarCenario();
+
 	}while(true);
 
 	return 0;

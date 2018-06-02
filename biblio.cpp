@@ -114,7 +114,10 @@ TipoElemento Marinha::getTipo(){
 }
 
 //##################### GrandLine #############################
-GrandLine::GrandLine(int tam){
+GrandLine::GrandLine(){
+}
+
+void GrandLine::inicializar(int tam){
 	int i;
 	cenario.resize(tam);
 	for(i = 0; i < tam; i++){
@@ -125,9 +128,13 @@ GrandLine::GrandLine(int tam){
 	Elemento obs(" O ", obstaculo);
 	Marinha mar(" M ", marinha, 100, false);	//HP, estado
 	Pirata player(" P ", pirata, 100, 70.0, 0.0);	//HP, peso, peso adicional
-	OnePiece op(300); //300 Kg
+	OnePiece op(300); //Peso
 	int r_linha;
 	int r_coluna;
+
+//o pirata parte de 0,0
+	setCenario(player, 0, 0);
+	setCenario(op, (cenario.size()-1), (cenario.size()-1));
 
 //coloca obstaculos em uma posição aleatória entre 1,1 e n-1,n-1 em uma posição que não esteja ocupada
 	for(i = 0; i < (cenario.size()/2); i++){
@@ -158,11 +165,8 @@ GrandLine::GrandLine(int tam){
 				 r_coluna = rand() % (cenario.size()-1) + 1;
 			 }
 	}while(cenario[r_coluna][r_linha].getTipo() != espacoVazio);
-	setCenario(mar, r_linha, r_coluna);
 
-//o pirata parte de 0,0
-	setCenario(player, 0, 0);
-	setCenario(op, (cenario.size()-1), (cenario.size()-1));
+	setCenario(mar, r_linha, r_coluna);
 }
 
 vector < vector<Elemento> > GrandLine::getCenario(){
@@ -170,13 +174,46 @@ vector < vector<Elemento> > GrandLine::getCenario(){
 }
 
 void GrandLine::setCenario(Elemento n, int x, int y){
-	cenario[y][x] = n;
+	cenario[x][y] = n;
 }
 
 void GrandLine::setCenario(Pirata n, int x, int y){
-	cenario[y][x] = n;
+	cenario[x][y] = n;
 }
 
 void GrandLine::setCenario(Marinha n, int x, int y){
-	cenario[y][x] = n;
+	cenario[x][y] = n;
+}
+
+void GrandLine::visualizarCenario(){
+	int i, j;
+	bool temObjetos = true;
+	int tam_colunas_original = cenario[0].size();
+
+	for(i = 0; i < cenario.size(); i++){
+		for(j = 0; j < tam_colunas_original; j++){
+			cout << getCenario()[i][j].getNome();
+		}
+		cout << endl;
+	}
+
+	for(i = 0; i < cenario.size(); i++){
+		for(j = 0; j < tam_colunas_original; j++){
+			if(cenario[i][j].getTipo() != espacoVazio){
+				j = tam_colunas_original;
+			}else if((j == tam_colunas_original-1) && cenario[i][j].getTipo() == espacoVazio){
+				cout << "linha " << i << " removida" << endl;
+				cenario.erase(cenario.begin()+i);
+				i--;
+			}
+		}
+	}
+
+	cout << endl << endl;
+	for(i = 0; i < cenario.size(); i++){
+		for(j = 0; j < tam_colunas_original; j++){
+			cout << getCenario()[i][j].getNome();
+		}
+		cout << endl;
+	}
 }
