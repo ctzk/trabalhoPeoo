@@ -7,7 +7,7 @@
 using namespace std;
 
 
-//#################################################################################### ELEMENTO #############################
+//##################### ELEMENTO #############################
 Elemento::Elemento(){
 	nome = " . ";
 	tipo = espacoVazio;
@@ -34,7 +34,7 @@ void Elemento::setTipo(TipoElemento tipo){
 TipoElemento Elemento::getTipo(){
 	return tipo;
 }
-//#################################################################################### PESSOA #############################
+//##################### PESSOA #############################
 Pessoa::Pessoa(string nome, TipoElemento tipo, int hp):Elemento(nome, tipo){
 	this->hp = hp;
 }
@@ -50,12 +50,9 @@ int Pessoa::getHp(){
 TipoElemento Pessoa::getTipo(){
 	return espacoVazio;
 }
-void Pessoa::move(){
-
-}
 
 
-//#################################################################################### ONEPIECE #############################
+//##################### ONEPIECE #############################
 OnePiece::OnePiece(float peso):Elemento(" OP", onePiece){	//One piece pode continuar assim
 	this->peso = peso;
 }
@@ -72,7 +69,7 @@ float OnePiece::getPeso(){
 	return peso;
 }
 
-//#################################################################################### PIRATA #############################
+//##################### PIRATA #############################
 Pirata::Pirata(string nome, TipoElemento tipo, int hp,
 				float peso, float pesoAdd) : Pessoa(nome, tipo, hp){
 	this->peso = peso;
@@ -99,59 +96,7 @@ TipoElemento Pirata::getTipo(){
 	return pirata;
 }
 
-void Pirata::move(GrandLine *mapa, Pirata *p, int estava_x, int estava_y, Movimento ir_para){
-	if(ir_para == baixo){
-		if(estava_x+1 < mapa->getCenario().size()){
-			if(mapa->getCenario()[estava_x+1][estava_y].getTipo() == espacoVazio || mapa->getCenario()[estava_x+1][estava_y].getTipo() == onePiece){
-				Elemento aux(" . ", espacoVazio);
-				mapa->setCenario(aux, estava_x, estava_y);
-				mapa->setCenario(*p, estava_x+1, estava_y);
-			}else{
-				cout << "Nao eh possivel ir para baixo" << endl;
-			}
-		}else{
-			cout << "Nao existe mais cenario a baixo" << endl;
-		}
-	}else if(ir_para == cima){
-		if(estava_x-1 >= 0){
-			if(mapa->getCenario()[estava_x-1][estava_y].getTipo() == espacoVazio || mapa->getCenario()[estava_x+1][estava_y].getTipo() == onePiece){
-				Elemento aux(" . ", espacoVazio);
-				mapa->setCenario(aux, estava_x, estava_y);
-				mapa->setCenario(*p, estava_x-1, estava_y);
-			}else{
-				cout << "Nao eh possivel ir para cima" << endl;
-			}
-		}else{
-			cout << "Nao existe mais cenario a cima" << endl;
-		}
-	}else if(ir_para == direita){
-		if(estava_y+1 < mapa->getCenario()[0].size()){
-			if(mapa->getCenario()[estava_x][estava_y+1].getTipo() == espacoVazio || mapa->getCenario()[estava_x+1][estava_y].getTipo() == onePiece){
-				Elemento aux(" . ", espacoVazio);
-				mapa->setCenario(aux, estava_x, estava_y);
-				mapa->setCenario(*p, estava_x, estava_y+1);
-			}else{
-				cout << "Nao eh possivel ir para direita" << endl;
-			}
-		}else{
-			cout << "Nao existe mais cenario a direita" << endl;
-		}
-	}else {
-		if(estava_y-1 >= 0){
-			if(mapa->getCenario()[estava_x][estava_y-1].getTipo() == espacoVazio || mapa->getCenario()[estava_x+1][estava_y].getTipo() == onePiece){
-				Elemento aux(" . ", espacoVazio);
-				mapa->setCenario(aux, estava_x, estava_y);
-				mapa->setCenario(*p, estava_x, estava_y-1);
-			}else{
-				cout << "Nao eh possivel ir para esquerda" << endl;
-			}
-		}else{
-			cout << "Nao existe mais cenario a esquerda" << endl;
-		}
-	}
-}
-
-//#################################################################################### MARINHA #############################
+//##################### MARINHA #############################
 Marinha::Marinha(std::string nome, TipoElemento tipo, int hp,
 									bool estado) : Pessoa(nome, tipo, hp){
 	this->estado = estado;
@@ -169,66 +114,7 @@ TipoElemento Marinha::getTipo(){
 	return marinha;
 }
 
-void Marinha::move(GrandLine *mapa, Marinha *m, int estava_x, int estava_y, Movimento ir_para){
-	if(mapa->getCenario()[estava_x+1][estava_y].getTipo() == pirata || mapa->getCenario()[estava_x-1][estava_y].getTipo() == pirata ||
-		 mapa->getCenario()[estava_x][estava_y+1].getTipo() == pirata || mapa->getCenario()[estava_x][estava_y-1].getTipo() == pirata){
-			 m->setEstado(true);
-	}
-
-	if(m->getEstado() == true){
-		if(ir_para == baixo){
-			if(estava_x+1 < mapa->getCenario().size()){
-				if(mapa->getCenario()[estava_x+1][estava_y].getTipo() == espacoVazio || mapa->getCenario()[estava_x+1][estava_y].getTipo() == pirata){
-					Elemento aux(" . ", espacoVazio);
-					mapa->setCenario(aux, estava_x, estava_y);
-					mapa->setCenario(*m, estava_x+1, estava_y);
-				}else{
-					cout << "Nao eh possivel ir para baixo" << endl;
-				}
-			}else{
-				cout << "Nao existe mais cenario a baixo" << endl;
-			}
-		}else if(ir_para == cima){
-			if(estava_x-1 >= 0){
-				if(mapa->getCenario()[estava_x-1][estava_y].getTipo() == espacoVazio || mapa->getCenario()[estava_x+1][estava_y].getTipo() == pirata){
-					Elemento aux(" . ", espacoVazio);
-					mapa->setCenario(aux, estava_x, estava_y);
-					mapa->setCenario(*m, estava_x-1, estava_y);
-				}else{
-					cout << "Nao eh possivel ir para cima" << endl;
-				}
-			}else{
-				cout << "Nao existe mais cenario a cima" << endl;
-			}
-		}else if(ir_para == direita){
-			if(estava_y+1 < mapa->getCenario()[0].size()){
-				if(mapa->getCenario()[estava_x][estava_y+1].getTipo() == espacoVazio || mapa->getCenario()[estava_x+1][estava_y].getTipo() == pirata){
-					Elemento aux(" . ", espacoVazio);
-					mapa->setCenario(aux, estava_x, estava_y);
-					mapa->setCenario(*m, estava_x, estava_y+1);
-				}else{
-					cout << "Nao eh possivel ir para direita" << endl;
-				}
-			}else{
-				cout << "Nao existe mais cenario a direita" << endl;
-			}
-		}else {
-			if(estava_y-1 >= 0){
-				if(mapa->getCenario()[estava_x][estava_y-1].getTipo() == espacoVazio || mapa->getCenario()[estava_x+1][estava_y].getTipo() == onePiece){
-					Elemento aux(" . ", espacoVazio);
-					mapa->setCenario(aux, estava_x, estava_y);
-					mapa->setCenario(*m, estava_x, estava_y-1);
-				}else{
-					cout << "Nao eh possivel ir para esquerda" << endl;
-				}
-			}else{
-				cout << "Nao existe mais cenario a esquerda" << endl;
-			}
-		}
-	}
-}
-
-//#################################################################################### GrandLine #############################
+//##################### GrandLine #############################
 GrandLine::GrandLine(){
 }
 
@@ -304,6 +190,7 @@ void GrandLine::visualizarCenario(){
 	int i, j;
 	bool temObjetos = true;
 
+	cout << endl << "Mapa Original" << endl;
 	for(i = 0; i < cenario.size(); i++){
 		for(j = 0; j < cenario[0].size(); j++){
 			cout << getCenario()[i][j].getNome();
@@ -328,34 +215,11 @@ void GrandLine::visualizarCenario(){
 void GrandLine::mostraMapa(){
 	int i, j;
 
+	cout << endl << "Mapa com linhas removidas" << endl;
 	for(i = 0; i < cenario.size(); i++){
 		for(j = 0; j < cenario[0].size(); j++){
 			cout << getCenario()[i][j].getNome();
 		}
 		cout << endl;
-	}
-}
-//#################################################################################### Funções Adicionais #############################
-void procuraPirata(GrandLine mapa, int *p){
-	int i, j;
-	for(i = 0; i < mapa.getCenario().size(); i++){
-		for(j = 0; j < mapa.getCenario()[0].size(); j++){
-			if(mapa.getCenario()[i][j].getTipo() == pirata){
-				p[0] = i;
-				p[1] = j;
-			}
-		}
-	}
-}
-
-void procuraMarinha(GrandLine mapa, int *m){
-	int i, j;
-	for(i = 0; i < mapa.getCenario().size(); i++){
-		for(j = 0; j < mapa.getCenario()[0].size(); j++){
-			if(mapa.getCenario()[i][j].getTipo() == marinha){
-				m[0] = i;
-				m[1] = j;
-			}
-		}
 	}
 }
