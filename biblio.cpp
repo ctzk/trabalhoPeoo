@@ -189,8 +189,7 @@ void GrandLine::setCenario(Marinha n, int x, int y){
 void GrandLine::visualizarCenario(){
 	int i, j;
 	bool temObjetos = true;
-
-	cout << endl << "Mapa Original" << endl;
+	
 	for(i = 0; i < cenario.size(); i++){
 		for(j = 0; j < cenario[0].size(); j++){
 			cout << getCenario()[i][j].getNome();
@@ -215,7 +214,6 @@ void GrandLine::visualizarCenario(){
 void GrandLine::mostraMapa(){
 	int i, j;
 
-	cout << endl << "Mapa com linhas removidas" << endl;
 	for(i = 0; i < cenario.size(); i++){
 		for(j = 0; j < cenario[0].size(); j++){
 			cout << getCenario()[i][j].getNome();
