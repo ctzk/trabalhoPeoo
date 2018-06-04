@@ -33,7 +33,7 @@ public:
 	Pessoa(std::string nome, TipoElemento tipo, int hp);
 	void setHp(int hp);
 	int getHp();
-	TipoElemento getTipo();
+	void procuraPosicao(GrandLine mapa, int *p);
 };
 
 //##################### PIRATA #############################
@@ -48,7 +48,6 @@ public:
 	float getPeso();
 	void setPesoAdd(float pesoAdd);
 	float getPesoAdd();
-	TipoElemento getTipo();
 };
 
 //##################### MARINHA #############################
@@ -59,7 +58,6 @@ public:
 	Marinha(std::string nome, TipoElemento tipo, int hp, bool estado);
 	void setEstado(bool estado);
 	bool getEstado();
-	TipoElemento getTipo();
 };
 
 //##################### ONEPIECE #############################
@@ -70,7 +68,6 @@ public:
 	OnePiece(float peso);
 	void setPeso(float peso);
 	float getPeso();
-	TipoElemento getTipo();
 };
 
 //##################### GRANDLINE #############################
