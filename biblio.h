@@ -49,6 +49,8 @@ public:
 	void setPesoAdd(float pesoAdd);
 	float getPesoAdd();
 	void move(GrandLine *mapa, Movimento ir_para);
+	void carregar();
+	void descarregar();
 };
 
 //##################### MARINHA #############################
@@ -85,7 +87,7 @@ public:
 	void visualizarCenario();
 	void setCenario(auto n, int x, int y);
 	std::vector < std::vector < Elemento > > getCenario();
-	void set_Tesouro(string nome, float peso);
+	void set_Tesouro(float peso);
 	OnePiece get_Tesouro();
 };
 
