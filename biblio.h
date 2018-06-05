@@ -33,7 +33,6 @@ public:
 	Pessoa(std::string nome, TipoElemento tipo, int hp);
 	void setHp(int hp);
 	int getHp();
-	void procuraPosicao(GrandLine mapa, int *p);
 	virtual void move(GrandLine *mapa, Movimento ir_para);
 };
 
@@ -68,7 +67,8 @@ class OnePiece: public Elemento{
 private:
 	float peso;
 public:
-	OnePiece(float peso);
+	OnePiece();
+	OnePiece(std::string nome, TipoElemento tipo, float peso);
 	void setPeso(float peso);
 	float getPeso();
 };
@@ -77,16 +77,16 @@ public:
 
 class GrandLine{
 private:
+	OnePiece tesouro;
 	std::vector< std::vector < Elemento > > cenario;
 public:
 	GrandLine();
 	void inicializar(int tam);
 	void visualizarCenario();
-	void setCenario(Elemento n, int x, int y);
-	void setCenario(Pirata n, int x, int y);
-	void setCenario(Marinha n, int x, int y);
+	void setCenario(auto n, int x, int y);
 	std::vector < std::vector < Elemento > > getCenario();
-	void mostraMapa();	//APENAS PARA TESTES, APAGAR DEPOIS
+	void set_Tesouro(string nome, float peso);
+	OnePiece get_Tesouro();
 };
 
 //##################### FUNÇÕES ADICIONAIS ##############################
