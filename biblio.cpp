@@ -9,7 +9,7 @@ using namespace std;
 
 //##################### ELEMENTO #############################
 Elemento::Elemento(){
-	nome = " . ";
+	nome = "";
 	tipo = espacoVazio;
 }
 
@@ -29,7 +29,6 @@ string Elemento::getNome(){
 void Elemento::setTipo(TipoElemento tipo){
 	this->tipo = tipo;
 }
-
 
 TipoElemento Elemento::getTipo(){
 	return tipo;
@@ -92,117 +91,178 @@ float Pirata::getPesoAdd(){
 }
 
 void Pirata::move(GrandLine *mapa, Movimento ir_para){
-	int estava_x, estava_y;
+	int esta_x, esta_y, vai_x, vai_y;
 	int i, j;
-	for(i = 0; i < mapa->getCenario().size(); i++){
-		for(j = 0; j < mapa->getCenario()[0].size(); j++){
-			if(mapa->getCenario()[i][j].getTipo() == getTipo()){
-				estava_x = i;
-				estava_y = j;
+	for(i = 0; i < mapa->cenario.size(); i++){
+		for(j = 0; j < mapa->cenario.size(); j++){
+			if(mapa->cenario[i][j].getTipo() == getTipo()){
+				esta_x = i;
+				esta_y = j;
 			}
 		}
 	}
-
-	if(estava_x == 5 && estava_y == 5){
-		setHp(getHp()-10);
-	}
-
-	Pirata p(getNome(), getTipo(), getHp(), getPeso(), getPesoAdd());
-	Elemento aux(" . ", espacoVazio);
 
 	if(ir_para == baixo){
-		if(estava_x+1 < mapa->getCenario().size()){
-			if(mapa->getCenario()[estava_x+1][estava_y].getTipo() == espacoVazio || mapa->getCenario()[estava_x+1][estava_y].getTipo() == onePiece){
-				
-				if(estava_x == mapa->getCenario().size()-1 && estava_y == mapa->getCenario().size()-1){
-					mapa->set_Tesouro(mapa->get_Tesouro().getPeso()-10);
-					OnePiece auxP(" T ", onePiece, mapa->get_Tesouro().getPeso());
-					mapa->setCenario(auxP, estava_x, estava_y);
-					carregar();
-				}else{
-					mapa->setCenario(aux, estava_x, estava_y);
-				}
-				
-				mapa->setCenario(p, estava_x+1, estava_y);
-			}else{
-				cout << "Nao eh possivel ir para baixo" << endl;
-			}
-		}else{
-			cout << "Nao existe mais cenario a baixo" << endl;
-		}
-	}else if(ir_para == cima){
-		if(estava_x-1 >= 0){
-			if(mapa->getCenario()[estava_x-1][estava_y].getTipo() == espacoVazio){
+		vai_x = esta_x+1;
+		vai_y = esta_y;
+	}
+	else if(ir_para == cima){
+		vai_x = esta_x-1;
+		vai_y = esta_y;
+	}
+	else if(ir_para == esquerda){
+		vai_x = esta_x;
+		vai_y = esta_y-1;
+	}
+	else if(ir_para == direita){
+		vai_x = esta_x;
+		vai_y = esta_y+1;
+	}
 
-				if(estava_x == mapa->getCenario().size()-1 && estava_y == mapa->getCenario().size()-1){
-					mapa->set_Tesouro(mapa->get_Tesouro().getPeso()-10);
-					OnePiece auxP(" T ", onePiece, mapa->get_Tesouro().getPeso());
-					mapa->setCenario(auxP, estava_x, estava_y);
-					carregar();
-				}else{
-					mapa->setCenario(aux, estava_x, estava_y);
-				}
-				
-				mapa->setCenario(p, estava_x-1, estava_y);
-			}else{
-				cout << "Nao eh possivel ir para cima" << endl;
-			}
-		}else{
-			cout << "Nao existe mais cenario a cima" << endl;
+	if(ir_para == baixo){
+		if(mapa->cenario[0][0].getTipo() == pirata){
+			descarregar();
 		}
-	}else if(ir_para == direita){
-		if(estava_y+1 < mapa->getCenario()[0].size()){
-			if(mapa->getCenario()[estava_x][estava_y+1].getTipo() == espacoVazio || mapa->getCenario()[estava_x][estava_y+1].getTipo() == onePiece){
 
-				if(estava_x == mapa->getCenario().size()-1 && estava_y == mapa->getCenario().size()-1){
-					mapa->set_Tesouro(mapa->get_Tesouro().getPeso()-10);
-					OnePiece auxP(" T ", onePiece, mapa->get_Tesouro().getPeso());
-					mapa->setCenario(auxP, estava_x, estava_y);
-					carregar();
-				}else{
-					mapa->setCenario(aux, estava_x, estava_y);
-				}
-				
-				mapa->setCenario(p, estava_x, estava_y+1);
-			}else{
-				cout << "Nao eh possivel ir para direita" << endl;
+		if(vai_x < mapa->cenario.size()){
+			if(mapa->cenario[vai_x][vai_y].getTipo() == espacoVazio || mapa->cenario[vai_x][vai_y].getTipo() == onePiece){
+				mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
+				mapa->cenario[vai_x][vai_y].setTipo(pirata);
 			}
-		}else{
-			cout << "Nao existe mais cenario a direita" << endl;
+			else{
+				cout << "Nao pode se mover para BAIXO." << endl;
+			}
 		}
-	}else {
-		if(estava_y-1 >= 0){
-			if(mapa->getCenario()[estava_x][estava_y-1].getTipo() == espacoVazio){
-
-				if(estava_x == mapa->getCenario().size()-1 && estava_y == mapa->getCenario().size()-1){
-					mapa->set_Tesouro(mapa->get_Tesouro().getPeso()-10);
-					OnePiece auxP(" T ", onePiece, mapa->get_Tesouro().getPeso());
-					mapa->setCenario(auxP, estava_x, estava_y);
+		else{
+			if(AchouOnePiece(*mapa)){
+				if(getPesoAdd() < getPeso() && mapa->tesouro.getPeso() > 0){
 					carregar();
-				}else{
-					mapa->setCenario(aux, estava_x, estava_y);
+					mapa->tesouro.setPeso(mapa->tesouro.getPeso()-10);
 				}
-				
-				mapa->setCenario(p, estava_x, estava_y-1);
-			}else{
-				cout << "Nao eh possivel ir para esquerda" << endl;
+				cout << "achou" << endl;
+				return;
 			}
-		}else{
-			cout << "Nao existe mais cenario a esquerda" << endl;
+			cout << "Acabou o cenario para BAIXO." << endl;
+		}
+	}
+	else if(ir_para == cima){
+		if(mapa->cenario[0][0].getTipo() == pirata){
+			descarregar();
+		}
+
+		if(vai_x >= 0){
+			if(mapa->cenario[vai_x][vai_y].getTipo() == espacoVazio){
+				if(AchouOnePiece(*mapa)){
+					if(getPesoAdd() < getPeso()){
+						if(mapa->tesouro.getPeso() > 0){
+							carregar();
+							mapa->tesouro.setPeso(mapa->tesouro.getPeso()-10);
+						}
+					}
+
+					if(mapa->tesouro.getPeso() == 0){	//quando o tesouro acaba remove onePiece do mapa
+						mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
+					}else{
+						mapa->cenario[esta_x][esta_y].setTipo(onePiece);
+					}
+					mapa->cenario[vai_x][vai_y].setTipo(pirata);
+					return;
+				}
+
+				mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
+				mapa->cenario[vai_x][vai_y].setTipo(pirata);
+			}
+			else{
+				cout << "Nao pode se mover para CIMA." << endl;
+			}
+		}
+		else{
+			cout << "Acabou o cenario para CIMA." << endl;
+		}
+	}
+	else if(ir_para == direita){
+		if(mapa->cenario[0][0].getTipo() == pirata){
+			descarregar();
+		}
+
+		if(vai_y < mapa->cenario[0].size()){
+			if(mapa->cenario[vai_x][vai_y].getTipo() == espacoVazio || mapa->cenario[vai_x][vai_y].getTipo() == onePiece){
+				mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
+				mapa->cenario[vai_x][vai_y].setTipo(pirata);
+			}
+			else{
+				cout << "Nao pode se mover para DIREITA." << endl;
+			}
+		}
+		else{
+			if(AchouOnePiece(*mapa)){
+					if(getPesoAdd() < getPeso() && mapa->tesouro.getPeso() > 0){
+						carregar();
+						mapa->tesouro.setPeso(mapa->tesouro.getPeso()-10);
+					}
+					cout << "achou" << endl;
+					return;
+				}
+			cout << "Acabou o cenario para DIREITA." << endl;
+		}
+	}
+	else if(ir_para == esquerda){
+		if(mapa->cenario[0][0].getTipo() == pirata){
+			descarregar();
+		}
+
+		if(vai_y >= 0){
+			if(mapa->cenario[vai_x][vai_y].getTipo() == espacoVazio){
+				if(AchouOnePiece(*mapa)){
+					if(getPesoAdd() < getPeso()){
+						if(mapa->tesouro.getPeso() > 0){
+							carregar();
+							mapa->tesouro.setPeso(mapa->tesouro.getPeso()-10);
+						}
+					}
+
+					if(mapa->tesouro.getPeso() == 0){		//quando o tesouro acaba remove onePiece do mapa
+						mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
+					}else{
+						mapa->cenario[esta_x][esta_y].setTipo(onePiece);
+					}
+
+					mapa->cenario[vai_x][vai_y].setTipo(pirata);
+					return;
+				}
+
+				mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
+				mapa->cenario[vai_x][vai_y].setTipo(pirata);
+			}
+			else{
+				cout << "Nao pode ser mover para ESQUERDA." << endl;
+			}
+		}
+		else{
+			cout << "Acabou o cenario para a ESQUERDA." << endl;
 		}
 	}
 }
 
 void Pirata::carregar(){
-	setPesoAdd(pesoAdd + 10);
+	pesoAdd += 10;
 }
 
 void Pirata::descarregar(){
-	setPesoAdd(0);
+	pesoAdd = 0;
 }
 
+bool Pirata::AchouOnePiece(GrandLine mapa){
+	if(mapa.cenario[mapa.cenario.size()-1][mapa.cenario.size()-1].getTipo() == pirata){
+		return true;
+	}
+	return false;
+}
 
 //##################### MARINHA #############################
+Marinha::Marinha():Pessoa("", marinha, 0){
+	estado = false;
+}
 Marinha::Marinha(std::string nome, TipoElemento tipo, int hp,
 									bool estado) : Pessoa(nome, tipo, hp){
 	this->estado = estado;
@@ -216,92 +276,8 @@ bool Marinha::getEstado(){
 	return estado;
 }
 
-
 void Marinha::move(GrandLine *mapa, Movimento ir_para){
-	int estava_x, estava_y;
-	int i, j;
-	for(i = 0; i < mapa->getCenario().size(); i++){
-		for(j = 0; j < mapa->getCenario()[0].size(); j++){
-			if(mapa->getCenario()[i][j].getTipo() == getTipo()){
-				estava_x = i;
-				estava_y = j;
-			}
-		}
-	}
 
-	//verifica se o pirata está proximo
-	if(estava_x+1 < mapa->getCenario().size()){
-		if(mapa->getCenario()[estava_x+1][estava_y].getTipo() == pirata){
-			setEstado(true);
-		}
-	}
-	if(estava_x-1 >= 0){
-		if(mapa->getCenario()[estava_x-1][estava_y].getTipo() == pirata){
-			setEstado(true);
-		}
-	}
-	if(estava_y+1 < mapa->getCenario()[0].size()){
-		if(mapa->getCenario()[estava_x][estava_y+1].getTipo() == pirata){
-			setEstado(true);
-		}
-	}
-	if(estava_y-1 >= 0){
-		if(mapa->getCenario()[estava_x][estava_y-1].getTipo() == pirata){
-			setEstado(true);
-		}
-	}
-
-	Marinha p(getNome(), getTipo(), getHp(), getEstado());
-	Elemento aux(" . ", espacoVazio);
-	
-
-	if(getEstado() == true){
-		if(ir_para == baixo){
-			if(estava_x+1 < mapa->getCenario().size()){
-				if(mapa->getCenario()[estava_x+1][estava_y].getTipo() == espacoVazio){
-					mapa->setCenario(aux, estava_x, estava_y);
-					mapa->setCenario(p, estava_x+1, estava_y);
-				}else{
-					cout << "Nao eh possivel ir para baixo" << endl;
-				}
-			}else{
-				cout << "Nao existe mais cenario a baixo" << endl;
-			}
-		}else if(ir_para == cima){
-			if(estava_x-1 >= 0){
-				if(mapa->getCenario()[estava_x-1][estava_y].getTipo() == espacoVazio){
-					mapa->setCenario(aux, estava_x, estava_y);
-					mapa->setCenario(p, estava_x-1, estava_y);
-				}else{
-					cout << "Nao eh possivel ir para cima" << endl;
-				}
-			}else{
-				cout << "Nao existe mais cenario a cima" << endl;
-			}
-		}else if(ir_para == direita){
-			if(estava_y+1 < mapa->getCenario()[0].size()){
-				if(mapa->getCenario()[estava_x][estava_y+1].getTipo() == espacoVazio){
-					mapa->setCenario(aux, estava_x, estava_y);
-					mapa->setCenario(p, estava_x, estava_y+1);
-				}else{
-					cout << "Nao eh possivel ir para direita" << endl;
-				}
-			}else{
-				cout << "Nao existe mais cenario a direita" << endl;
-			}
-		}else {
-			if(estava_y-1 >= 0){
-				if(mapa->getCenario()[estava_x][estava_y-1].getTipo() == espacoVazio){
-					mapa->setCenario(aux, estava_x, estava_y);
-					mapa->setCenario(p, estava_x, estava_y-1);
-				}else{
-					cout << "Nao eh possivel ir para esquerda" << endl;
-				}
-			}else{
-				cout << "Nao existe mais cenario a esquerda" << endl;
-			}
-		}
-	}
 }
 
 //##################### GrandLine #############################
@@ -316,14 +292,10 @@ void GrandLine::inicializar(int tam){
 	}
 
 	srand(time(NULL));
-	Elemento obs(" O ", obstaculo);
-	Marinha mar(" M ", marinha, 0, false);	//HP, estado
-	Pirata player(" P ", pirata, 0, 0, 0);	//HP, peso, peso adicional
-	OnePiece tesouro(" T ", onePiece, 0); //Peso
 	int r_linha, r_coluna;
 
-	cenario[0][0] = player;
-	cenario[cenario.size()-1][cenario.size()-1] = tesouro;
+	cenario[0][0].setTipo(pirata);
+	cenario[cenario.size()-1][cenario.size()-1].setTipo(onePiece);
 
 //coloca obstaculos em uma posição aleatória entre 1,1 e n-1,n-1 em uma posição que não esteja ocupada
 	for(i = 0; i < (cenario.size()/2); i++){
@@ -332,14 +304,14 @@ void GrandLine::inicializar(int tam){
 			r_coluna = rand() % (cenario.size()-1) + 1;
 
 			if(cenario[cenario.size()-1][cenario.size()-2].getTipo() == obstaculo ||
-				 cenario[cenario.size()-2][cenario.size()-1].getTipo() == obstaculo ||
-				 cenario[0][1].getTipo() == obstaculo || cenario[1][0].getTipo() == obstaculo){
-					 r_linha = rand() % (cenario.size()-1) + 1;
-					 r_coluna = rand() % (cenario.size()-1) + 1;
+			   cenario[cenario.size()-2][cenario.size()-1].getTipo() == obstaculo ||
+			   cenario[0][1].getTipo() == obstaculo || cenario[1][0].getTipo() == obstaculo){
+					r_linha = rand() % (cenario.size()-1) + 1;
+					r_coluna = rand() % (cenario.size()-1) + 1;
 				 }
 		}while(cenario[r_linha][r_coluna].getTipo() != espacoVazio);
 
-		cenario[r_linha][r_coluna] = obs;
+		cenario[r_linha][r_coluna].setTipo(obstaculo);
 	}
 
 //coloca marinha em uma posição aleatória entre 1,1 e n-1,n-1 em uma posição que não esteja ocupada
@@ -348,13 +320,13 @@ void GrandLine::inicializar(int tam){
 		r_coluna = rand() % (cenario.size()-1) + 1;
 
 		if((r_linha == 1 && r_coluna == 0 && cenario[0][1].getTipo() == obstaculo) ||
-			 (r_linha == 0 && r_coluna == 1 && cenario[1][0].getTipo() == obstaculo)){
-				 r_linha = rand() % (cenario.size()-1) + 1;
-				 r_coluna = rand() % (cenario.size()-1) + 1;
+			(r_linha == 0 && r_coluna == 1 && cenario[1][0].getTipo() == obstaculo)){
+				r_linha = rand() % (cenario.size()-1) + 1;
+				r_coluna = rand() % (cenario.size()-1) + 1;
 			 }
 	}while(cenario[r_linha][r_coluna].getTipo() != espacoVazio);
 
-	cenario[r_linha][r_coluna] = mar;
+	cenario[r_linha][r_coluna].setTipo(marinha);
 }
 
 vector < vector<Elemento> > GrandLine::getCenario(){
@@ -371,29 +343,29 @@ void GrandLine::visualizarCenario(){
 
 	for(i = 0; i < cenario.size(); i++){
 		for(j = 0; j < cenario[0].size(); j++){
-			cout << getCenario()[i][j].getNome();
+			if(cenario[i][j].getTipo() == obstaculo){
+				cout << " O ";
+			}
+			else if(cenario[i][j].getTipo() == pirata){
+				cout << " P ";
+			}
+			else if(cenario[i][j].getTipo() == marinha){
+				cout << " M ";
+			}
+			else if(cenario[i][j].getTipo() == espacoVazio){
+				cout << " . ";
+			}
+			else if(cenario[i][j].getTipo() == onePiece){
+				cout << " T ";
+			}
 		}
 		cout << endl;
 	}
 
-/*
-	//remove linhas com apenas espaços vazios
-	for(i = 0; i < cenario.size(); i++){
-		for(j = 0; j < cenario[0].size(); j++){
-			if(cenario[i][j].getTipo() != espacoVazio){
-				j = cenario[0].size();
-			}else if((j == cenario[0].size()-1) && cenario[i][j].getTipo() == espacoVazio){
-				cenario[i].clear();	//esvazia o vetor
-				cenario.erase(cenario.begin()+i);	//remove o vetor "da conta"
-				i--;
-			}
-		}
-	}
-*/
 }
 
 void GrandLine::set_Tesouro(float peso){
-	tesouro.setNome(" X ");
+	tesouro.setNome("");
 	tesouro.setPeso(peso);
 }
 

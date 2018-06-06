@@ -33,7 +33,7 @@ public:
 	Pessoa(std::string nome, TipoElemento tipo, int hp);
 	void setHp(int hp);
 	int getHp();
-	virtual void move(GrandLine *mapa, Movimento ir_para);
+	void move(GrandLine *mapa, Movimento ir_para);
 };
 
 //##################### PIRATA #############################
@@ -51,6 +51,7 @@ public:
 	void move(GrandLine *mapa, Movimento ir_para);
 	void carregar();
 	void descarregar();
+	bool AchouOnePiece(GrandLine mapa);
 };
 
 //##################### MARINHA #############################
@@ -58,6 +59,7 @@ class Marinha: public Pessoa{
 private:
 	bool estado;
 public:
+	Marinha();
 	Marinha(std::string nome, TipoElemento tipo, int hp, bool estado);
 	void setEstado(bool estado);
 	bool getEstado();
@@ -79,7 +81,9 @@ public:
 
 class GrandLine{
 private:
+	friend class Pirata;
 	OnePiece tesouro;
+	Marinha marinheiro;
 	std::vector< std::vector < Elemento > > cenario;
 public:
 	GrandLine();
