@@ -78,6 +78,8 @@ float Pirata::getPesoAdd(){
 void Pirata::move(GrandLine *mapa, Movimento ir_para){
 	int esta_x, esta_y, vai_x, vai_y;
 	int i, j;
+
+	//localiza onde o pirata está na Grand Line
 	for(i = 0; i < mapa->cenario.size(); i++){
 		for(j = 0; j < mapa->cenario.size(); j++){
 			if(mapa->cenario[i][j].getTipo() == getTipo()){
@@ -125,20 +127,17 @@ void Pirata::move(GrandLine *mapa, Movimento ir_para){
 			mapa->cenario[mapa->cenario.size()-2][mapa->cenario.size()-1].setTipo(pirata);
 			return;
 	}
-
 	else if(mapa->cenario[mapa->cenario.size()-2][mapa->cenario.size()-1].getTipo() == pirata && getPesoAdd() == 0){
 			mapa->cenario[mapa->cenario.size()-2][mapa->cenario.size()-1].setTipo(espacoVazio);
 			mapa->cenario[mapa->cenario.size()-1][mapa->cenario.size()-1].setTipo(pirata);
 			return;
 	}
-
 	else if(mapa->cenario[mapa->cenario.size()-1][mapa->cenario.size()-3].getTipo() == pirata &&
 			mapa->cenario[mapa->cenario.size()-1][mapa->cenario.size()-2].getTipo() == espacoVazio && getPesoAdd() == 0){
 			mapa->cenario[mapa->cenario.size()-1][mapa->cenario.size()-3].setTipo(espacoVazio);
 			mapa->cenario[mapa->cenario.size()-1][mapa->cenario.size()-2].setTipo(pirata);
 			return;
 	}
-
 	else if(mapa->cenario[mapa->cenario.size()-1][mapa->cenario.size()-2].getTipo() == pirata && getPesoAdd() == 0){
 			mapa->cenario[mapa->cenario.size()-1][mapa->cenario.size()-2].setTipo(espacoVazio);
 			mapa->cenario[mapa->cenario.size()-1][mapa->cenario.size()-1].setTipo(pirata);
@@ -154,23 +153,24 @@ void Pirata::move(GrandLine *mapa, Movimento ir_para){
 				mapa->cenario[vai_x][vai_y].setTipo(pirata);
 			}
 			else{
-				//para fugir da marinha
+				//movimento especial para fugir da marinha
 				if(mapa->cenario[vai_x][vai_y].getTipo() == marinha){
 					Movimento movimento_de_fulga;
 					do{
 						movimento_de_fulga = Movimento(rand() % 4 + 1);
 					}while(movimento_de_fulga == ir_para);
 
-					cout << endl << "*" << getNome() << " percebeu que a marinha esta proxima*" << endl << endl;
+					cout << endl << "*" << getNome() << " percebeu que a marinha esta proxima*" << endl;
 					move(&(*mapa), movimento_de_fulga);
 					return;
 				}
-				cout << endl << "*Um obstaculo bloqueou a passagem de " << getNome() << ".*" << endl << endl;
+				//quando o pirata bate em algo o marinheiro acorda
+				cout << endl << "*Um obstaculo bloqueou a passagem de " << getNome() << ".*" << endl;
 				mapa->marinheiro.setEstado(true);
 			}
 		}
 		else{
-			cout << endl << "*" << getNome() << " quase saiu da Grand Line BAIXO.*" << endl << endl;
+			cout << endl << "*" << getNome() << " quase saiu da Grand Line.*" << endl;
 		}
 	}
 	else if(ir_para == cima){
@@ -202,17 +202,17 @@ void Pirata::move(GrandLine *mapa, Movimento ir_para){
 						movimento_de_fulga = Movimento(rand() % 4 + 1);
 					}while(movimento_de_fulga == ir_para);
 
-					cout << endl << "*" << getNome() << " percebeu que a marinha esta proxima*" << endl << endl;
+					cout << endl << "*" << getNome() << " percebeu que a marinha esta proxima*" << endl;
 					move(&(*mapa), movimento_de_fulga);
 					return;
 				}
 
-				cout << endl << "*Um obstaculo bloqueou a passagem de " << getNome() << ".*" << endl << endl;
+				cout << endl << "*Um obstaculo bloqueou a passagem de " << getNome() << ".*" << endl;
 				mapa->marinheiro.setEstado(true);
 			}
 		}
 		else{
-			cout << endl << "*" << getNome() << " quase saiu da Grand Line CIMA.*" << endl << endl;
+			cout << endl << "*" << getNome() << " quase saiu da Grand Line.*" << endl << endl;
 		}
 	}
 
@@ -231,17 +231,17 @@ void Pirata::move(GrandLine *mapa, Movimento ir_para){
 						movimento_de_fulga = Movimento(rand() % 4 + 1);
 					}while(movimento_de_fulga == ir_para);
 
-					cout << endl << "*" << getNome() << " percebeu que a marinha esta proxima*" << endl << endl;
+					cout << endl << "*" << getNome() << " percebeu que a marinha esta proxima*" << endl;
 					move(&(*mapa), movimento_de_fulga);
 					return;
 				}
 
-				cout << endl << "*Um obstaculo bloqueou a passagem de " << getNome() << ".*" << endl << endl;
+				cout << endl << "*Um obstaculo bloqueou a passagem de " << getNome() << ".*" << endl;
 				mapa->marinheiro.setEstado(true);
 			}
 		}
 		else{
-			cout << endl << "*" << getNome() << " quase saiu da Grand Line DIREITA.*" << endl << endl;
+			cout << endl << "*" << getNome() << " quase saiu da Grand Line.*" << endl;
 		}
 	}
 
@@ -271,17 +271,17 @@ void Pirata::move(GrandLine *mapa, Movimento ir_para){
 						movimento_de_fulga = Movimento(rand() % 4 + 1);
 					}while(movimento_de_fulga == ir_para);
 
-					cout << endl << "*" << getNome() << " percebeu que a marinha esta proxima*" << endl << endl;
+					cout << endl << "*" << getNome() << " percebeu que a marinha esta proxima*" << endl;
 					move(&(*mapa), movimento_de_fulga);
 					return;
 				}
 
-				cout << endl << "*Um obstaculo bloqueou a passagem de " << getNome() << ".*" << endl << endl;
+				cout << endl << "*Um obstaculo bloqueou a passagem de " << getNome() << ".*" << endl;
 				mapa->marinheiro.setEstado(true);
 			}
 		}
 		else{
-			cout << endl << "*" << getNome() << " quase saiu da Grand Line ESQUERDA.*" << endl << endl;
+			cout << endl << "*" << getNome() << " quase saiu da Grand Line.*" << endl << endl;
 		}
 	}
 }
@@ -369,10 +369,10 @@ void Marinha::move(GrandLine *mapa, Movimento ir_para){
 		}
 
 		//A marinha nunca ira capturar o pirata se ele estiver no One Piece
-		if(vai_x == mapa->cenario.size()-1 && vai_x == mapa->cenario.size()-1){
-			Movimento movimentacao_especial = Movimento(rand() % 4 + 1);
-			move(&(*mapa), movimentacao_especial);
-		}
+		// if(vai_x == mapa->cenario.size()-1 && vai_x == mapa->cenario.size()-1){
+		// 	Movimento movimentacao_especial = Movimento(rand() % 4 + 1);
+		// 	move(&(*mapa), movimentacao_especial);
+		// }
 	}else{
 		mapa->marinheiro.setEstado(false);
 		mapa->marinheiro.setTempoAcordado(0);
@@ -394,13 +394,13 @@ void Marinha::move(GrandLine *mapa, Movimento ir_para){
 					mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
 					mapa->cenario[vai_x][vai_y].setTipo(marinha);
 				}
-				else{
-					cout << "MARINHA *Nao pode se mover para BAIXO.*" << endl << endl;
-				}
+				// else{
+				// 	cout << "MARINHA *Nao pode se mover para BAIXO.*" << endl << endl;
+				// }
 			}
-			else{
-				cout << "MARINHA *Acabou o cenario para BAIXO.*" << endl << endl;
-			}
+			// else{
+			// 	cout << "MARINHA *Acabou o cenario para BAIXO.*" << endl << endl;
+			// }
 		}
 		else if(ir_para == cima){
 
@@ -409,19 +409,19 @@ void Marinha::move(GrandLine *mapa, Movimento ir_para){
 
 					if(mapa->cenario[vai_x][vai_y].getTipo() == pirata){
 						mapa->pirata_Aux.setHp(mapa->pirata_Aux.getHp()-50);
-						mapa->cenario[0][0].setTipo(pirata);	//pirata volta para o inicio do mapa
+						mapa->cenario[0][0].setTipo(pirata);
 					}
 
 					mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
 					mapa->cenario[vai_x][vai_y].setTipo(marinha);
 				}
-				else{
-					cout << "MARINHA *Nao pode se mover para CIMA.*" << endl << endl;
-				}
+				// else{
+				// 	cout << "MARINHA *Nao pode se mover para CIMA.*" << endl << endl;
+				// }
 			}
-			else{
-				cout << "MARINHA *Acabou o cenario para CIMA.*" << endl << endl;
-			}
+			// else{
+			// 	cout << "MARINHA *Acabou o cenario para CIMA.*" << endl << endl;
+			// }
 		}
 
 		else if(ir_para == direita){
@@ -431,19 +431,19 @@ void Marinha::move(GrandLine *mapa, Movimento ir_para){
 
 					if(mapa->cenario[vai_x][vai_y].getTipo() == pirata){
 						mapa->pirata_Aux.setHp(mapa->pirata_Aux.getHp()-50);
-						mapa->cenario[0][0].setTipo(pirata);	//pirata volta para o inicio do mapa
+						mapa->cenario[0][0].setTipo(pirata);
 					}
 
 					mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
 					mapa->cenario[vai_x][vai_y].setTipo(marinha);
 				}
-				else{
-					cout << "MARINHA *Nao pode se mover para DIREITA.*" << endl << endl;
-				}
+				// else{
+				// 	cout << "MARINHA *Nao pode se mover para DIREITA.*" << endl << endl;
+				// }
 			}
-			else{
-				cout << "MARINHA *Acabou o cenario para DIREITA.*" << endl << endl;
-			}
+			// else{
+			// 	cout << "MARINHA *Acabou o cenario para DIREITA.*" << endl << endl;
+			// }
 		}
 
 		else if(ir_para == esquerda){
@@ -453,19 +453,19 @@ void Marinha::move(GrandLine *mapa, Movimento ir_para){
 
 					if(mapa->cenario[vai_x][vai_y].getTipo() == pirata){
 						mapa->pirata_Aux.setHp(mapa->pirata_Aux.getHp()-50);
-						mapa->cenario[0][0].setTipo(pirata);	//pirata volta para o inicio do mapa
+						mapa->cenario[0][0].setTipo(pirata);
 					}
 
 					mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
 					mapa->cenario[vai_x][vai_y].setTipo(marinha);
 				}
-				else{
-					cout << "MARINHA *Nao pode ser mover para ESQUERDA.*" << endl << endl;
-				}
+				// else{
+				// 	cout << "MARINHA *Nao pode ser mover para ESQUERDA.*" << endl << endl;
+				// }
 			}
-			else{
-				cout << "MARINHA *Acabou o cenario para a ESQUERDA.*" << endl << endl;
-			}
+			// else{
+			// 	cout << "MARINHA *Acabou o cenario para a ESQUERDA.*" << endl << endl;
+			// }
 		}
 	}
 }
@@ -517,7 +517,7 @@ void GrandLine::inicializar(int tam){
 	cenario[0][0].setTipo(pirata);
 	cenario[cenario.size()-1][cenario.size()-1].setTipo(onePiece);
 
-//coloca obstaculos em uma posição aleatória entre 1,1 e n-1,n-1 em uma posição que não esteja ocupada
+	//coloca obstaculos em uma posição aleatória entre 1,1 e n-1,n-1 em uma posição que não esteja ocupada
 	for(i = 0; i < (cenario.size()/2); i++){
 		do{
 			r_linha = rand() % (cenario.size()-1) + 1;
@@ -534,7 +534,7 @@ void GrandLine::inicializar(int tam){
 		cenario[r_linha][r_coluna].setTipo(obstaculo);
 	}
 
-//coloca marinha em uma posição aleatória entre 1,1 e n-1,n-1 em uma posição que não esteja ocupada
+	//coloca marinha em uma posição aleatória entre 1,1 e n-1,n-1 em uma posição que não esteja ocupada
 	do{
 		r_linha = rand() % (cenario.size()-1) + 1;
 		r_coluna = rand() % (cenario.size()-1) + 1;
@@ -556,7 +556,6 @@ vector < vector<Elemento> > GrandLine::getCenario(){
 void GrandLine::setCenario(vector< vector<Elemento> > cenario){
 	this->cenario = cenario;
 }
-
 
 void GrandLine::visualizarCenario(){
 	int i, j;
@@ -585,7 +584,7 @@ void GrandLine::visualizarCenario(){
 
 }
 
-void GrandLine::set_Tesouro(float peso){
+void GrandLine::set_Peso_Tesouro(float peso){
 	tesouro.setPeso(peso);
 }
 

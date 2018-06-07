@@ -98,7 +98,7 @@ public:
 	void visualizarCenario();
 	void setCenario(std::vector< std::vector < Elemento > > cenario);
 	std::vector < std::vector < Elemento > > getCenario();
-	void set_Tesouro(float peso);
+	void set_Peso_Tesouro(float peso);
 	OnePiece get_Tesouro();
 	Pirata get_Pirata_Aux();
 };
