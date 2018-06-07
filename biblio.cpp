@@ -362,6 +362,17 @@ void Marinha::move(GrandLine *mapa, Movimento ir_para){
 
 	if(mapa->marinheiro.getEstado() == true && mapa->marinheiro.getTempoAcordado() >= 0 && mapa->marinheiro.getTempoAcordado() < 3){
 		mapa->marinheiro.addTempoAcordado();
+		//gera a movimentação aleatória da marinha caso o pirata esteja carregando ou descarregando
+		if(mapa->cenario[0][0].getTipo() == pirata || mapa->cenario[mapa->cenario.size()-1][mapa->cenario.size()-1].getTipo() == pirata){
+			Movimento movimentacao_especial = Movimento(rand() % 4 + 1);
+			move(&(*mapa), movimentacao_especial);
+		}
+
+		//A marinha nunca ira capturar o pirata se ele estiver no One Piece
+		if(vai_x == mapa->cenario.size()-1 && vai_x == mapa->cenario.size()-1){
+			Movimento movimentacao_especial = Movimento(rand() % 4 + 1);
+			move(&(*mapa), movimentacao_especial);
+		}
 	}else{
 		mapa->marinheiro.setEstado(false);
 		mapa->marinheiro.setTempoAcordado(0);
@@ -372,7 +383,14 @@ void Marinha::move(GrandLine *mapa, Movimento ir_para){
 		if(ir_para == baixo){
 
 			if(vai_x < mapa->cenario.size()){
-				if(mapa->cenario[vai_x][vai_y].getTipo() == espacoVazio){
+				if(mapa->cenario[vai_x][vai_y].getTipo() == espacoVazio || mapa->cenario[vai_x][vai_y].getTipo() == pirata){
+
+					//remove 50 de HP ao encontrar o pirata
+					if(mapa->cenario[vai_x][vai_y].getTipo() == pirata){
+						mapa->pirata_Aux.setHp(mapa->pirata_Aux.getHp()-50);
+						mapa->cenario[0][0].setTipo(pirata);	//pirata volta para o inicio do mapa
+					}
+
 					mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
 					mapa->cenario[vai_x][vai_y].setTipo(marinha);
 				}
@@ -387,8 +405,13 @@ void Marinha::move(GrandLine *mapa, Movimento ir_para){
 		else if(ir_para == cima){
 
 			if(vai_x >= 0){
-				if(mapa->cenario[vai_x][vai_y].getTipo() == espacoVazio){
-					//deixa uma espaço vazio por onde passou
+				if(mapa->cenario[vai_x][vai_y].getTipo() == espacoVazio || mapa->cenario[vai_x][vai_y].getTipo() == pirata){
+
+					if(mapa->cenario[vai_x][vai_y].getTipo() == pirata){
+						mapa->pirata_Aux.setHp(mapa->pirata_Aux.getHp()-50);
+						mapa->cenario[0][0].setTipo(pirata);	//pirata volta para o inicio do mapa
+					}
+
 					mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
 					mapa->cenario[vai_x][vai_y].setTipo(marinha);
 				}
@@ -404,7 +427,13 @@ void Marinha::move(GrandLine *mapa, Movimento ir_para){
 		else if(ir_para == direita){
 
 			if(vai_y < mapa->cenario[0].size()){
-				if(mapa->cenario[vai_x][vai_y].getTipo() == espacoVazio){
+				if(mapa->cenario[vai_x][vai_y].getTipo() == espacoVazio || mapa->cenario[vai_x][vai_y].getTipo() == pirata){
+
+					if(mapa->cenario[vai_x][vai_y].getTipo() == pirata){
+						mapa->pirata_Aux.setHp(mapa->pirata_Aux.getHp()-50);
+						mapa->cenario[0][0].setTipo(pirata);	//pirata volta para o inicio do mapa
+					}
+
 					mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
 					mapa->cenario[vai_x][vai_y].setTipo(marinha);
 				}
@@ -420,7 +449,13 @@ void Marinha::move(GrandLine *mapa, Movimento ir_para){
 		else if(ir_para == esquerda){
 
 			if(vai_y >= 0){
-				if(mapa->cenario[vai_x][vai_y].getTipo() == espacoVazio){
+				if(mapa->cenario[vai_x][vai_y].getTipo() == espacoVazio || mapa->cenario[vai_x][vai_y].getTipo() == pirata){
+
+					if(mapa->cenario[vai_x][vai_y].getTipo() == pirata){
+						mapa->pirata_Aux.setHp(mapa->pirata_Aux.getHp()-50);
+						mapa->cenario[0][0].setTipo(pirata);	//pirata volta para o inicio do mapa
+					}
+
 					mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
 					mapa->cenario[vai_x][vai_y].setTipo(marinha);
 				}
@@ -466,6 +501,7 @@ float OnePiece::getPeso(){
 
 //##################### GrandLine #############################
 GrandLine::GrandLine(){
+	pirata_Aux.setHp(100);
 }
 
 void GrandLine::inicializar(int tam){

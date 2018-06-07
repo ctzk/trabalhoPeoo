@@ -1,3 +1,10 @@
+/*############################################################//
+
+				Univercidade Estadual do Ceará - UECE
+				Equipe: Vinicius Eduardo, Lucas Araújo, Lucas Almeida
+				Docente: Matheus Magalhaes de Carvalho
+
+//###########################################################*/
 #include "biblio.h"
 #include<iostream>
 #include<vector>
@@ -6,6 +13,7 @@
 using namespace std;
 
 int main(){
+	string vida_restante;
 	srand(time(NULL));
 
 	Pirata player("Luffy", pirata, 100, 70.0, 0.0);
@@ -30,7 +38,8 @@ int main(){
 			cout << endl << "\tParabens! Voce eh o novo Rei dos Piratas!" << endl;
 			break;
 		}
-		if(player.getHp() == 0){
+		if(cenario_jogo.get_Pirata_Aux().getHp() == 0){
+			cout << player.getNome() << " morreu, mais sorte na proxima!" << endl;
 			break;
 		}
 
@@ -52,7 +61,21 @@ int main(){
 		player.move(&cenario_jogo, ir_para);
 		boss.move(&cenario_jogo, ir_para);
 
-		cout << "Tesouro restante: " << cenario_jogo.get_Tesouro().getPeso() << endl;
+		if(cenario_jogo.get_Pirata_Aux().getHp() == 100){
+			vida_restante.clear();
+			vida_restante = "[ ][ ]";
+		}
+		else if(cenario_jogo.get_Pirata_Aux().getHp() == 50){
+			vida_restante.clear();
+			vida_restante = "[X][ ]";
+		}
+		else if(cenario_jogo.get_Pirata_Aux().getHp() == 0){
+			vida_restante.clear();
+			vida_restante = "[X][X]";
+		}
+
+		cout << endl << "Tesouro restante: " << cenario_jogo.get_Tesouro().getPeso() << endl;
+		cout << "Vida: " << vida_restante << endl;
 		cout << "Peso adicional: " << player.getPesoAdd() << endl;
 		cout << "---------------------"<< endl;
 	}
