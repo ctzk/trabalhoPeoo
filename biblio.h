@@ -42,6 +42,7 @@ private:
 	float peso;
 	float pesoAdd;
 public:
+	Pirata();
 	Pirata(std::string nome, TipoElemento tipo, int hp,
 					float peso, float pesoAdd);
 	void setPeso(float peso);
@@ -58,12 +59,16 @@ public:
 class Marinha: public Pessoa{
 private:
 	bool estado;
+	int tempoAcordado;
 public:
 	Marinha();
 	Marinha(std::string nome, TipoElemento tipo, int hp, bool estado);
 	void setEstado(bool estado);
 	bool getEstado();
 	void move(GrandLine *mapa, Movimento ir_para);
+	void setTempoAcordado(int tempoAcordado);
+	int getTempoAcordado();
+	void addTempoAcordado();
 };
 
 //##################### ONEPIECE #############################
@@ -82,17 +87,20 @@ public:
 class GrandLine{
 private:
 	friend class Pirata;
+	friend class Marinha;
 	OnePiece tesouro;
 	Marinha marinheiro;
+	Pirata pirata_Aux;
 	std::vector< std::vector < Elemento > > cenario;
 public:
 	GrandLine();
 	void inicializar(int tam);
 	void visualizarCenario();
-	void setCenario(auto n, int x, int y);
+	void setCenario(std::vector< std::vector < Elemento > > cenario);
 	std::vector < std::vector < Elemento > > getCenario();
 	void set_Tesouro(float peso);
 	OnePiece get_Tesouro();
+	Pirata get_Pirata_Aux();
 };
 
 //##################### FUNÇÕES ADICIONAIS ##############################
