@@ -1,10 +1,10 @@
-/*############################################################//
+/*########################################################################//
 
 				Univercidade Estadual do Ceará - UECE
 				Equipe: Vinicius Eduardo, Lucas Araújo, Lucas Almeida
 				Docente: Matheus Magalhaes de Carvalho
 
-//###########################################################*/
+//#######################################################################*/
 #include "biblio.h"
 #include<iostream>
 #include<vector>

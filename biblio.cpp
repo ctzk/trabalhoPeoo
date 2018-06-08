@@ -367,12 +367,6 @@ void Marinha::move(GrandLine *mapa, Movimento ir_para){
 			Movimento movimentacao_especial = Movimento(rand() % 4 + 1);
 			move(&(*mapa), movimentacao_especial);
 		}
-
-		//A marinha nunca ira capturar o pirata se ele estiver no One Piece
-		// if(vai_x == mapa->cenario.size()-1 && vai_x == mapa->cenario.size()-1){
-		// 	Movimento movimentacao_especial = Movimento(rand() % 4 + 1);
-		// 	move(&(*mapa), movimentacao_especial);
-		// }
 	}else{
 		mapa->marinheiro.setEstado(false);
 		mapa->marinheiro.setTempoAcordado(0);
@@ -394,13 +388,7 @@ void Marinha::move(GrandLine *mapa, Movimento ir_para){
 					mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
 					mapa->cenario[vai_x][vai_y].setTipo(marinha);
 				}
-				// else{
-				// 	cout << "MARINHA *Nao pode se mover para BAIXO.*" << endl << endl;
-				// }
 			}
-			// else{
-			// 	cout << "MARINHA *Acabou o cenario para BAIXO.*" << endl << endl;
-			// }
 		}
 		else if(ir_para == cima){
 
@@ -415,13 +403,7 @@ void Marinha::move(GrandLine *mapa, Movimento ir_para){
 					mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
 					mapa->cenario[vai_x][vai_y].setTipo(marinha);
 				}
-				// else{
-				// 	cout << "MARINHA *Nao pode se mover para CIMA.*" << endl << endl;
-				// }
 			}
-			// else{
-			// 	cout << "MARINHA *Acabou o cenario para CIMA.*" << endl << endl;
-			// }
 		}
 
 		else if(ir_para == direita){
@@ -437,13 +419,7 @@ void Marinha::move(GrandLine *mapa, Movimento ir_para){
 					mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
 					mapa->cenario[vai_x][vai_y].setTipo(marinha);
 				}
-				// else{
-				// 	cout << "MARINHA *Nao pode se mover para DIREITA.*" << endl << endl;
-				// }
 			}
-			// else{
-			// 	cout << "MARINHA *Acabou o cenario para DIREITA.*" << endl << endl;
-			// }
 		}
 
 		else if(ir_para == esquerda){
@@ -459,13 +435,7 @@ void Marinha::move(GrandLine *mapa, Movimento ir_para){
 					mapa->cenario[esta_x][esta_y].setTipo(espacoVazio);
 					mapa->cenario[vai_x][vai_y].setTipo(marinha);
 				}
-				// else{
-				// 	cout << "MARINHA *Nao pode ser mover para ESQUERDA.*" << endl << endl;
-				// }
 			}
-			// else{
-			// 	cout << "MARINHA *Acabou o cenario para a ESQUERDA.*" << endl << endl;
-			// }
 		}
 	}
 }
